@@ -18,13 +18,8 @@ public class GM : MonoBehaviour
         if (playerManager == null)
         {
             playerManager = FindFirstObjectByType<PlayerManager>();
-        }   
+        }
     }
 
     #endregion UNITY METHODS
-
-    #region METHODS
-
-
-    #endregion METHODS
 }

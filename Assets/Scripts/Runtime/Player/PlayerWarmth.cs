@@ -18,12 +18,10 @@ public class PlayerWarmth : MonoBehaviour
 
     private void Awake()
     {
-        currentTemp = maxTemp/2;
+        currentTemp = maxTemp / 2;
 
         OnTempChanged?.Invoke(currentTemp);
     }
-
-
 
     #endregion UNITY METHODS
 
@@ -52,12 +50,12 @@ public class PlayerWarmth : MonoBehaviour
 
         OnTempChanged?.Invoke(currentTemp);
     }
+
     public void ResetWarmth()
     {
         currentTemp = maxTemp;
         OnTempChanged?.Invoke(currentTemp);
     }
-
 
     #endregion METHODS
 }

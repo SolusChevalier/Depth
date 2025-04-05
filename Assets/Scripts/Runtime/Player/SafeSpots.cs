@@ -3,25 +3,26 @@ using UnityEngine;
 public class SafeSpots : MonoBehaviour
 {
     #region FIELDS
+
     public PlayerManager playerManager;
-    public float safeSpotRadius = 5f; 
-    public float ShieldIncreaseRate = 1f; 
-    public int NewMaxHeatShield = 100; 
-    public bool isInSafeSpot = false; 
+    public float safeSpotRadius = 5f;
+    public float ShieldIncreaseRate = 1f;
+    public int NewMaxHeatShield = 100;
+    public bool isInSafeSpot = false;
     private float _timeSinceLastTick = 0f;
+
     #endregion FIELDS
 
-
     #region UNITY METHODS
-    void Start()
+
+    private void Start()
     {
         playerManager = FindFirstObjectByType<PlayerManager>();
         SphereCollider collider = GetComponent<SphereCollider>();
-        if(collider != null)
+        if (collider != null)
         {
             safeSpotRadius = collider.radius;
         }
-
     }
 
     //without using flag
@@ -63,7 +64,6 @@ public class SafeSpots : MonoBehaviour
             }
         }
     }*/
+
     #endregion UNITY METHODS
-
-
 }
