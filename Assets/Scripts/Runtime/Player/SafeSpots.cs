@@ -45,7 +45,8 @@ public class SafeSpots : MonoBehaviour
         }
     }
 
-    //using flag/*
+    //using flag
+    /*
     public void FixedUpdate()
     {
         if (isInSafeSpot)
