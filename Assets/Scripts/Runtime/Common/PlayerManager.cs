@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     #region FIELDS
-    private EntityHealth playerHealth;
+    private HeatShield HeatShield;
     private PlayerWarmth playerTemp;
     private float damageRate = 1.0f;
     private float minSafeTemp = 0.4f; 
@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     #region UNITY METHODS
     private void Start()
     {
-        playerHealth = GetComponent<EntityHealth>();
+        HeatShield = GetComponent<HeatShield>();
         playerTemp = GetComponent<PlayerWarmth>();
     }
 
@@ -26,14 +26,17 @@ public class PlayerManager : MonoBehaviour
     #region METHODS
     private void ApplyHealthDamageBasedOnWarmth()
     {
-        if (playerTemp != null && playerHealth != null)
+        if (playerTemp != null && HeatShield != null)
         {
             float warmthLevel = playerTemp.currentTemp;
             float damage = CalculateDamage(warmthLevel);
-            playerHealth.TakeDamage(Mathf.RoundToInt(damage * Time.fixedDeltaTime));
+            HeatShield.TakeShieldDamage(Mathf.RoundToInt(damage * Time.fixedDeltaTime));
         }
     }
-
+    public void SetMasHeatShield(int newShield)
+    {
+        HeatShield.MaxShield = newShield;
+    }
     private float CalculateDamage(float warmthLevel)
     {
         if (warmthLevel < minSafeTemp)

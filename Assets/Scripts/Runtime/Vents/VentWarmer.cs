@@ -9,7 +9,7 @@ public class VentWarmer : MonoBehaviour
     #endregion FIELDS
     #region UNITY METHODS
 
-    private void OnTriggerEnter(Collider other)
+    private void OnColliderStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
