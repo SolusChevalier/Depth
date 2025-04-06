@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    #region FIELDS
-
-    #endregion FIELDS
-
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
+        }
+    }
 
 }
