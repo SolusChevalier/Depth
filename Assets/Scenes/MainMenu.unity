@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuMusic: {fileID: 0}
-  gameSceneMusic: {fileID: 0}
+  gameSceneMusic: {fileID: 8300000, guid: 8a873728997a3b84d922f18e96dadbd9, type: 3}
   deathMusic: {fileID: 0}
   WinMusic: {fileID: 0}
 --- !u!82 &989528050
