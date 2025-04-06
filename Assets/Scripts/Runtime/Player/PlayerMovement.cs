@@ -2,20 +2,58 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    #region FIELDS
+    [Header("Movement Settings")]
+    public float swimForce = 10f;
 
-    public float swimSpeed = 5f;
-    public float swimAcceleration = 10f;
-    public float swimDeceleration = 10f;
-    public float maxSwimSpeed = 10f;
+    public float rotationSpeed = 100f;
+    public float buoyancyForce = 5f;
+    public float maxBuoyancySpeed = 3f;
 
-    public float CurrentPitch = 0f;
+    private Rigidbody rb;
 
-    //public float maxPitch = 45f;
-    //public float minPitch = -45f;
-    public float pitchSpeed = 1f;
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false; // No gravity in water
+    }
 
-    public PlayerManager playerManager;
+    private void FixedUpdate()
+    {
+        HandleMovement();
+        HandleRotation();
+        HandleBuoyancy();
+    }
 
-    #endregion FIELDS
+    private void HandleMovement()
+    {
+        float moveInput = Input.GetAxis("Vertical"); // W/S keys
+        Vector3 force = transform.up * moveInput * swimForce;
+        rb.AddForce(force);
+    }
+
+    private void HandleRotation()
+    {
+        float rotationInput = -Input.GetAxis("Horizontal"); // A/D keys (inverted for correct direction)
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, 0f, rotationInput * rotationSpeed * Time.fixedDeltaTime));
+    }
+
+    private void HandleBuoyancy()
+    {
+        float verticalSpeed = rb.linearVelocity.y;
+
+        if (Input.GetKey(KeyCode.LeftShift) && verticalSpeed < maxBuoyancySpeed)
+        {
+            rb.AddForce(Vector3.up * buoyancyForce);
+        }
+        else if (Input.GetKey(KeyCode.LeftControl) && verticalSpeed > -maxBuoyancySpeed)
+        {
+            rb.AddForce(Vector3.down * buoyancyForce);
+        }
+    }
 }
+
+/*if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) && Time.time > nextSwimKick)
+{
+    rb.AddForce(transform.up * swimKickForce, ForceMode.Impulse);
+    nextSwimKick = Time.time + kickCooldown;
+}*/

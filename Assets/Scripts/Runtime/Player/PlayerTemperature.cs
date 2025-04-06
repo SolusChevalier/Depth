@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
-public class PlayerWarmth : MonoBehaviour
+public class PlayerTemperature : MonoBehaviour
 {
     #region FIELDS
 
     public float maxTemp = 100f;
     public float currentTemp;
-    public GameObject player;
 
     public UnityEvent<float> OnTempChanged;
 
@@ -27,31 +25,35 @@ public class PlayerWarmth : MonoBehaviour
 
     #region METHODS
 
-    public void RemoveWarmth(int Temp)
+    public void RemoveTemperature(float temp)
     {
-        currentTemp -= Temp;
+        currentTemp -= temp;
         currentTemp = Mathf.Clamp(currentTemp, 0, maxTemp);
 
         OnTempChanged?.Invoke(currentTemp);
 
         if (currentTemp <= 0)
         {
-            /*currentWarmth = 0;
+            currentTemp = 0;
             Debug.Log("Player died");
-            SceneManager.LoadScene(0);*/
-            //Mabye die?
+            // SceneManager.LoadScene(0); // Uncomment if you want to reload the scene
         }
     }
 
-    public void AddWarmth(int warmth)
+    public void AddTemperature(float temp)
     {
-        currentTemp += warmth;
-        currentTemp = Mathf.Clamp(currentTemp, 0, maxTemp);  // Ensure health stays within bounds
+        currentTemp += temp;
+        currentTemp = Mathf.Clamp(currentTemp, 0, maxTemp);
 
         OnTempChanged?.Invoke(currentTemp);
     }
 
-    public void ResetWarmth()
+    public float GetTemperaturePercentage()
+    {
+        return currentTemp / maxTemp;
+    }
+
+    public void ResetTemperature()
     {
         currentTemp = maxTemp;
         OnTempChanged?.Invoke(currentTemp);

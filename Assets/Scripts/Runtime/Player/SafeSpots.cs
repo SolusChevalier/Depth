@@ -4,11 +4,9 @@ public class SafeSpots : MonoBehaviour
 {
     #region FIELDS
 
-    public PlayerManager playerManager;
     public float safeSpotRadius = 5f;
-    public float ShieldIncreaseRate = 1f;
-    public int NewMaxHeatShield = 100;
-    public bool isInSafeSpot = false;
+    public float shieldIncreaseRate = 1f;
+    public int newMaxHeatShield = 100;
     private float _timeSinceLastTick = 0f;
 
     #endregion FIELDS
@@ -17,7 +15,6 @@ public class SafeSpots : MonoBehaviour
 
     private void Start()
     {
-        playerManager = FindFirstObjectByType<PlayerManager>();
         SphereCollider collider = GetComponent<SphereCollider>();
         if (collider != null)
         {
@@ -25,45 +22,23 @@ public class SafeSpots : MonoBehaviour
         }
     }
 
-    //without using flag
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (collision.collider.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
-            if (isInSafeSpot)
+            PlayerManager playerManager = other.GetComponent<PlayerManager>();
+            if (playerManager != null)
             {
                 _timeSinceLastTick += Time.fixedDeltaTime;
                 if (_timeSinceLastTick >= 1f)
                 {
-                    HeatShield heatShield = GetComponent<HeatShield>();
-                    if (heatShield != null)
-                    {
-                        playerManager.SetMasHeatShield(NewMaxHeatShield);
-                        _timeSinceLastTick = 0f; // Reset the timer
-                    }
+                    playerManager.SetMaxHeatShield(newMaxHeatShield);
+                    playerManager.heatShield.AddShield(shieldIncreaseRate);
+                    _timeSinceLastTick = 0f;
                 }
             }
         }
     }
-
-    //using flag
-    /*
-    public void FixedUpdate()
-    {
-        if (isInSafeSpot)
-        {
-            _timeSinceLastTick += Time.fixedDeltaTime;
-            if (_timeSinceLastTick >= 1f)
-            {
-                HeatShield heatShield = GetComponent<HeatShield>();
-                if (heatShield != null)
-                {
-                    playerManager.SetMasHeatShield(NewMaxHeatShield);
-                    _timeSinceLastTick = 0f; // Reset the timer
-                }
-            }
-        }
-    }*/
 
     #endregion UNITY METHODS
 }

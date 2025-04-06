@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -8,12 +6,10 @@ public class HeatShield : MonoBehaviour
 {
     #region FIELDS
 
-    public int MaxShield = 100;
-    public int CurrentShield;
-    public GameObject player;
+    public float maxShield = 100f;
+    public float currentShield;
 
-    // UnityEvent that will be invoked when health changes
-    public UnityEvent<int> OnShieldChanged;
+    public UnityEvent<float> OnShieldChanged;
 
     #endregion FIELDS
 
@@ -21,51 +17,55 @@ public class HeatShield : MonoBehaviour
 
     private void Awake()
     {
-        CurrentShield = MaxShield;
+        currentShield = maxShield;
 
-        OnShieldChanged?.Invoke(CurrentShield);
-    }
-
-    private void Update()
-    {
-        if (player.transform.position.y <= -25) // If the player falls off the map
-        {
-            Debug.Log("Player fell off the map" + player.transform.position.y);
-            SceneManager.LoadScene(0);
-        }
+        OnShieldChanged?.Invoke(currentShield);
     }
 
     #endregion UNITY METHODS
 
     #region METHODS
 
-    public void TakeShieldDamage(int damage)
+    public void TakeShieldDamage(float damage)
     {
-        CurrentShield -= damage;
-        CurrentShield = Mathf.Clamp(CurrentShield, 0, MaxShield);  // Ensure health stays within bounds
+        currentShield -= damage;
+        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
 
-        OnShieldChanged?.Invoke(CurrentShield);
+        OnShieldChanged?.Invoke(currentShield);
 
-        if (CurrentShield <= 0)
+        if (currentShield <= 0)
         {
-            CurrentShield = 0;
+            currentShield = 0;
             Debug.Log("Player died");
             SceneManager.LoadScene(0);
         }
     }
 
-    public void AddShield(int Amount)
+    public void AddShield(float amount)
     {
-        CurrentShield += Amount;
-        CurrentShield = Mathf.Clamp(CurrentShield, 0, MaxShield);  // Ensure health stays within bounds
+        currentShield += amount;
+        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
 
-        OnShieldChanged?.Invoke(CurrentShield);
+        OnShieldChanged?.Invoke(currentShield);
+    }
+
+    public void RemoveShield(float amount)
+    {
+        currentShield -= amount;
+        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
+
+        OnShieldChanged?.Invoke(currentShield);
+    }
+
+    public float GetShieldPercentage()
+    {
+        return currentShield / maxShield;
     }
 
     public void ResetShield()
     {
-        CurrentShield = MaxShield;
-        OnShieldChanged?.Invoke(CurrentShield);
+        currentShield = maxShield;
+        OnShieldChanged?.Invoke(currentShield);
     }
 
     #endregion METHODS
