@@ -58,8 +58,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.22
+  m_Height: 1.93
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3417671086291827275
@@ -296,7 +296,8 @@ PrefabInstance:
       value: Diver Ron
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8821623529969584324, guid: f4e1ffa0aa9c1d146812098a4ab37f4a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4e1ffa0aa9c1d146812098a4ab37f4a, type: 3}
