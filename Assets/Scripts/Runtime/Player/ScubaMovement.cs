@@ -6,6 +6,7 @@ public class ScubaMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float thrustForce = 5f;
 
+    [SerializeField] private Vector2 InputCords = new Vector2(0, 0);
     public float rotationSpeed = 100f;
     public float verticalBuoyancyForce = 3f;
     public float maxVerticalSpeed = 2f;
@@ -35,6 +36,19 @@ public class ScubaMovement : MonoBehaviour
         float turn = turnInput * rotationSpeed * Time.fixedDeltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 1f);
         rb.MoveRotation(rb.rotation * turnRotation);
+    }
+
+    private void CalcInput()
+    {
+        Vector2 input = new Vector2(
+            Input.GetAxis("Mouse Y"),
+            Input.GetAxis("Mouse X")
+        );
+        const float e = 0.01f;
+        if (input.x < -e || input.x > e || input.y < -e || input.y > e)
+        {
+            InputCords += Time.unscaledDeltaTime * input;
+        }
     }
 
     private void HandleBuoyancy()

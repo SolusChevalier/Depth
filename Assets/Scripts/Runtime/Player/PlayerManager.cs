@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float minSafeTemp = 35f;
     [SerializeField] private float maxSafeTemp = 65f;
     public float tempDecayRate = 0.01f;
+    private float _progression = 0.0f;
+    [SerializeField] private bool isCursorLocked = false;
+    [SerializeField] private float _speedIncrement = 0.1f;
 
     #endregion FIELDS
 
@@ -21,8 +24,19 @@ public class PlayerManager : MonoBehaviour
         playerTemp = GetComponent<PlayerTemperature>();
     }
 
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isCursorLocked = !isCursorLocked;
+            Cursor.lockState = isCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !isCursorLocked;
+        }
+    }
+
     private void FixedUpdate()
     {
+        _progression += Time.deltaTime * _speedIncrement;
         ApplyHealthDamageBasedOnWarmth();
         ApplyTemperatureDecay();
     }
