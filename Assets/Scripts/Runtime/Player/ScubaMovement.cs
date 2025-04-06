@@ -27,13 +27,13 @@ public class ScubaMovement : MonoBehaviour
     {
         // Forward/Backward
         float moveInput = Input.GetAxis("Vertical"); // W/S
-        Vector3 moveForce = transform.forward * moveInput * thrustForce;
+        Vector3 moveForce = transform.up * moveInput * thrustForce;
         rb.AddForce(moveForce);
 
         // Rotate left/right (yaw)
         float turnInput = Input.GetAxis("Horizontal"); // A/D
         float turn = turnInput * rotationSpeed * Time.fixedDeltaTime;
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+        Quaternion turnRotation = Quaternion.Euler(0f, turn, 1f);
         rb.MoveRotation(rb.rotation * turnRotation);
     }
 
@@ -53,7 +53,9 @@ public class ScubaMovement : MonoBehaviour
 
             // Optional clamp to avoid infinite rising/falling
             if (Mathf.Abs(rb.linearVelocity.y) < maxVerticalSpeed)
+            {
                 rb.AddForce(upwardForce, ForceMode.Acceleration);
+            }
         }
     }
 }
