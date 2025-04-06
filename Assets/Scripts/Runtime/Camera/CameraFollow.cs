@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public Transform Player;
     public float CamOffset = -6f;
     private Vector3 CameraOffsetTarget;
-
+    public float LerpSpeed = 2f;
     #endregion FIELDS
 
     #region UNITY METHODS
@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         {
             CameraOffsetTarget = Player.position;
             CameraOffsetTarget.z = CamOffset;
-            transform.position = Vector3.Lerp(transform.position, CameraOffsetTarget, Time.deltaTime * 2f);
+            transform.position = Vector3.Lerp(transform.position, CameraOffsetTarget, Time.deltaTime * LerpSpeed);
         }
     }
     #endregion UNITY METHODS

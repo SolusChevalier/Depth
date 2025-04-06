@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2584771798284293582}
-  - component: {fileID: 2530654792230599448}
-  - component: {fileID: 3417671086291827275}
   - component: {fileID: 1853927375730829753}
   - component: {fileID: 6214696678103030618}
+  - component: {fileID: 2530654792230599448}
+  - component: {fileID: 3417671086291827275}
   - component: {fileID: 1280743396537307278}
   - component: {fileID: 630507353306259281}
   m_Layer: 0
@@ -39,6 +39,41 @@ Transform:
   - {fileID: 2804281563574724393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1853927375730829753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840076274600031501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9524f5e8bf121449124e1a18867a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heatShield: {fileID: 1280743396537307278}
+  playerTemp: {fileID: 6214696678103030618}
+  damageRate: 1
+  minSafeTemp: 35
+  maxSafeTemp: 65
+  tempDecayRate: 0.1
+--- !u!114 &6214696678103030618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840076274600031501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1355b612f833e49bd3364ab5f04452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTemp: 60
+  currentTemp: 0
+  OnTempChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &2530654792230599448
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -89,41 +124,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
---- !u!114 &1853927375730829753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5840076274600031501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9524f5e8bf121449124e1a18867a2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heatShield: {fileID: 1280743396537307278}
-  playerTemp: {fileID: 6214696678103030618}
-  damageRate: 1
-  minSafeTemp: 35
-  maxSafeTemp: 65
-  tempDecayRate: 0.1
---- !u!114 &6214696678103030618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5840076274600031501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1355b612f833e49bd3364ab5f04452, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTemp: 100
-  currentTemp: 0
-  OnTempChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1280743396537307278
 MonoBehaviour:
   m_ObjectHideFlags: 0

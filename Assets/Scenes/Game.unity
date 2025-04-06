@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.05
+  m_FogDensity: 0.2
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 11274173}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2375164, y: 0, z: 0, w: 0.9713836}
-  m_LocalPosition: {x: 0, y: 251, z: -575}
+  m_LocalPosition: {x: 0, y: 35.5, z: -82.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -522,6 +522,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: -6971980658429069891, guid: 5269197259989ee4d99a6da50847fbdf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f3a4b62055d9d34b9d6981444c9d42e, type: 2}
     - target: {fileID: 919132149155446097, guid: 5269197259989ee4d99a6da50847fbdf, type: 3}
       propertyPath: m_Name
       value: TestWall (1)
@@ -1778,6 +1782,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4555315086634137831, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555315086634137831, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
+      propertyPath: far clip plane
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555315086634137831, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
+      propertyPath: orthographic size
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5755682836714983207, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -1826,6 +1842,14 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1281504931}
+    - target: {fileID: 7220006755005884951, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
+      propertyPath: CamOffset
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220006755005884951, guid: d436eba4621a4424da3fd35d68e4034d, type: 3}
+      propertyPath: LerpSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2281,7 +2305,7 @@ PrefabInstance:
       objectReference: {fileID: 1281504933}
     - target: {fileID: 1853927375730829753, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: tempDecayRate
-      value: 0.01
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2584771798284293582, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2346,6 +2370,10 @@ PrefabInstance:
     - target: {fileID: 5840076274600031501, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214696678103030618, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
+      propertyPath: maxTemp
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6214696678103030618, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: OnTempChanged.m_PersistentCalls.m_Calls.Array.size

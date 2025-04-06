@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerTemperature : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerTemperature : MonoBehaviour
 
     private void Awake()
     {
-        currentTemp = maxTemp / 2;
+        currentTemp = maxTemp;
 
         OnTempChanged?.Invoke(currentTemp);
     }
@@ -36,7 +37,7 @@ public class PlayerTemperature : MonoBehaviour
         {
             currentTemp = 0;
             Debug.Log("Player died");
-            // SceneManager.LoadScene(0); // Uncomment if you want to reload the scene
+            SceneManager.LoadScene(2);
         }
     }
 
