@@ -4,13 +4,24 @@ public class VentWarmer : MonoBehaviour
 {
     #region FIELDS
 
-    public float warmth = 0.5f;
-    public float warmthDist = 10f;
-    public Transform ventCenter;
+    [SerializeField] private float warmth = 0.5f;
+    [SerializeField] private float warmthDist = 10f;
+    [SerializeField] private SphereCollider sphereCollider;
+    private float _timeSinceLastTick = 0f;
+    private const float tickInterval = 1f;
 
     #endregion FIELDS
 
     #region UNITY METHODS
+
+    private void Start()
+    {
+        sphereCollider = GetComponent<SphereCollider>();
+        if (sphereCollider != null)
+        {
+            warmthDist = sphereCollider.radius;
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -19,11 +30,16 @@ public class VentWarmer : MonoBehaviour
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             if (playerManager != null)
             {
-                float distToPlayer = Vector3.Distance(other.transform.position, ventCenter.position);
-                float distModifier = Mathf.Clamp01((warmthDist - distToPlayer) / warmthDist);
-                float adjustedWarmth = warmth * distModifier;
+                _timeSinceLastTick += Time.fixedDeltaTime;
+                if (_timeSinceLastTick >= tickInterval)
+                {
+                    float distToPlayer = Vector3.Distance(other.transform.position, transform.position);
+                    float distModifier = Mathf.Clamp01((warmthDist - distToPlayer) / warmthDist);
+                    float adjustedWarmth = warmth * distModifier;
 
-                playerManager.playerTemp.AddTemperature(adjustedWarmth * Time.deltaTime);
+                    playerManager.playerTemp.AddTemperature(adjustedWarmth);
+                    _timeSinceLastTick = 0f;
+                }
             }
         }
     }

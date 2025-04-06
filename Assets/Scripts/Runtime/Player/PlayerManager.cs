@@ -6,9 +6,9 @@ public class PlayerManager : MonoBehaviour
 
     public HeatShield heatShield;
     public PlayerTemperature playerTemp;
-    private float damageRate = 1.0f;
-    private float minSafeTemp = 0.4f;
-    private float maxSafeTemp = 0.6f;
+    [SerializeField] private float damageRate = 1.0f;
+    [SerializeField] private float minSafeTemp = 35f;
+    [SerializeField] private float maxSafeTemp = 65f;
     public float tempDecayRate = 0.01f;
 
     #endregion FIELDS
@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyHealthDamageBasedOnWarmth();
-        //ApplyTemperatureDecay();
+        ApplyTemperatureDecay();
     }
 
     #endregion UNITY METHODS
