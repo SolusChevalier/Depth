@@ -43,7 +43,7 @@ public class WallMeshGeneratorEditor : EditorWindow
         {
             for (int x = 0; x < width; x++)
             {
-                Color pixel = texture.GetPixel(x, y);
+                Color pixel = texture.GetPixel(x, height - 1 - y);
 
                 if (pixel.r > 0.5f && pixel.g > 0.5f && pixel.b > 0.5f)
                 {
