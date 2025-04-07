@@ -9,21 +9,23 @@ public class DiverControllerPrototype : MonoBehaviour
 
     [Header("Kick Settings")]
     public float kickForce = 5f;
-
-    public float kickDuration = 1f;
+    public float kickDuration = 0.5f;
+    public float kickCooldown = 0.5f;
     public AnimationCurve kickCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Buoyancy Settings")]
     public float bcdForce = 3f;
-
     public float surfaceY = 0f; // Adjustable "sea level"
     public float pressureMultiplier = 0.1f;
     public float maxVerticalSpeed = 2f;
+    public float neutralTopY = -5f; // Top level where you are neutral with no air
+    public float neutralBottomY = -20f; // Bottom level where you need full BCD to be neutral
+    public float maxBcdAir = 100f; // Maximum BCD air amount
 
+    private float currentBcdAir = 0f; // Current BCD air amount
     private Rigidbody rb;
     private Coroutine kickRoutine;
     private bool isCursorLocked = false;
-    //private Vector2 inputCords = new Vector2(0, 0);
 
     private void Start()
     {
@@ -70,37 +72,64 @@ public class DiverControllerPrototype : MonoBehaviour
     // Applies forward thrust over time, like a diver's kick
     private IEnumerator KickCoroutine()
     {
-        float elapsed = 0f;
-        while (elapsed < kickDuration)
+        while (Input.GetKey(KeyCode.W))
         {
-            float forceMultiplier = kickCurve.Evaluate(elapsed / kickDuration);
-            Vector3 force = transform.up * kickForce * forceMultiplier;
+            float elapsed = 0f;
+            while (elapsed < kickDuration)
+            {
+                float forceMultiplier = kickCurve.Evaluate(elapsed / kickDuration);
+                Vector3 force = transform.up * kickForce * forceMultiplier;
 
-            rb.AddForce(force, ForceMode.Acceleration);
-            elapsed += Time.deltaTime;
-            yield return null;
+                rb.AddForce(force, ForceMode.Acceleration);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(kickCooldown);
         }
+
         kickRoutine = null;
     }
 
     // Adjusts vertical position based on BCD and pressure at depth
     private void HandleBuoyancy()
     {
-        float input = 0f;
-        if (Input.GetKey(KeyCode.LeftShift)) input = 1f;
-        else if (Input.GetKey(KeyCode.LeftControl)) input = -1f;
-
-        if (input != 0f)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            float depth = Mathf.Abs(transform.position.y - surfaceY);
-            float pressure = 1f + depth * pressureMultiplier;
+            currentBcdAir = Mathf.Min(currentBcdAir + Time.deltaTime * 10f, maxBcdAir);
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            currentBcdAir = Mathf.Max(currentBcdAir - Time.deltaTime * 10f, 0f);
+        }
 
-            float adjustedForce = (bcdForce / pressure) * input;
+        float depth = transform.position.y;
+        float pressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth));
 
-            if (Mathf.Abs(rb.linearVelocity.y) < maxVerticalSpeed)
-            {
-                rb.AddForce(Vector3.up * adjustedForce, ForceMode.Acceleration);
-            }
+        // Apply buoyancy force based on current BCD air amount and pressure
+        float buoyancyForce = CalculateBuoyancyForce(depth, pressure);
+        rb.AddForce(Vector3.up * buoyancyForce, ForceMode.Acceleration);
+    }
+
+    // Calculates the buoyancy force based on the diver's depth and pressure
+    private float CalculateBuoyancyForce(float depth, float pressure)
+    {
+        float bcdEffectiveness = currentBcdAir / maxBcdAir;
+        float adjustedBcdForce = bcdForce * bcdEffectiveness / pressure;
+
+        if (depth > neutralTopY)
+        {
+            return -adjustedBcdForce; // Negative buoyancy above neutral top
+        }
+        else if (depth < neutralBottomY)
+        {
+            return adjustedBcdForce; // Positive buoyancy below neutral bottom
+        }
+        else
+        {
+            // Interpolate buoyancy force within the neutral range
+            float t = Mathf.InverseLerp(neutralBottomY, neutralTopY, depth);
+            return Mathf.Lerp(adjustedBcdForce, -adjustedBcdForce, t);
         }
     }
 
@@ -116,6 +145,11 @@ public class DiverControllerPrototype : MonoBehaviour
         // Surface line
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(new Vector3(-100f, surfaceY, 0f), new Vector3(100f, surfaceY, 0f));
+
+        // Neutral buoyancy range
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(new Vector3(-100f, neutralTopY, 0f), new Vector3(100f, neutralTopY, 0f));
+        Gizmos.DrawLine(new Vector3(-100f, neutralBottomY, 0f), new Vector3(100f, neutralBottomY, 0f));
     }
 
 #endif
