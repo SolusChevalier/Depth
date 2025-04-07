@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2584771798284293582}
-  - component: {fileID: 5473537363852042229}
   - component: {fileID: 2530654792230599448}
   - component: {fileID: 3417671086291827275}
   m_Layer: 0
@@ -36,23 +35,6 @@ Transform:
   - {fileID: 2804281563574724393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5473537363852042229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5840076274600031501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd71cb5e2d244e48b4ceaeade3cf9c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrustForce: 5
-  InputCords: {x: 0, y: 0}
-  rotationSpeed: 100
-  verticalBuoyancyForce: 3
-  maxVerticalSpeed: 2
 --- !u!136 &2530654792230599448
 CapsuleCollider:
   m_ObjectHideFlags: 0

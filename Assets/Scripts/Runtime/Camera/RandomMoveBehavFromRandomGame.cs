@@ -6,15 +6,22 @@ public class RandomMoveBehavFromRandomGame : MonoBehaviour
     #region FIELDS
 
     public GameObject ball;
-    private bool SliderPower = false;
+
+    /// <summary>
+    /// private bool SliderPower = false;
+    /// </summary>
     private Transform _ballTrans;
+
     private SphereCollider _ballCol;
     public float shotPwr;
     public float MaxShotPwr = 20f;
-    private float _shotPwrMod = 5f;
-    private float _stopSpd = 0.1f;
+
+    //private float _shotPwrMod = 5f;
+    //private float _stopSpd = 0.1f;
     public bool _isIdle, _isAiming;
+
     public GameObject AimingLine;
+
     public GameObject Spawn;
     private CameraOrbit _camOrbitReference;
     public Vector2 InputCords;

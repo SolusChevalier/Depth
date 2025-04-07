@@ -33,12 +33,20 @@ public class MusicManager : MonoBehaviour
     {
         switch (scene.name)
         {
-            case "StartMenu":
+            case "MainMenu":
                 PlayMusic(mainMenuMusic);
                 break;
 
             case "Game":
                 PlayMusic(gameSceneMusic);
+                break;
+
+            case "Death":
+                PlayMusic(deathMusic);
+                break;
+
+            case "Victory":
+                PlayMusic(WinMusic);
                 break;
 
             default:
