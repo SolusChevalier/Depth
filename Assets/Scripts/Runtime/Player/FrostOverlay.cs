@@ -12,7 +12,7 @@ public class FrostOverlay : MonoBehaviour
 
     public Image FrostOverLayUI;
     public PlayerTemperature playerTemp;
-    public float maxTemp = 50f;
+    public float maxTemp = 60f;
     public float minTemp = 0f;
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class FrostOverlay : MonoBehaviour
         float alpha = 1f - normTemp;
 
         Color frostColor= FrostOverLayUI.color;
-        frostColor.a = Mathf.Lerp(0f,0.4f,alpha);
+        frostColor.a = Mathf.Lerp(0f,1f,alpha);
         FrostOverLayUI.color = frostColor;
     }
 }
