@@ -24,10 +24,15 @@ public class DiverControllerPrototype : MonoBehaviour
     public float neutralBottomY = -20f; // Bottom level where you need full BCD to be neutral
     public float maxBcdAir = 100f; // Maximum BCD air amount
 
-    private float currentBcdAir = 0f; // Current BCD air amount
+    public float currentBcdAir = 0f; // Current BCD air amount
     private Rigidbody rb;
     private Coroutine kickRoutine;
     private bool isCursorLocked = false;
+
+    [Header("Diver Stats")]
+    public float depth = 0f;
+
+    public float pressure = 0f;
 
     private void Start()
     {
@@ -53,6 +58,8 @@ public class DiverControllerPrototype : MonoBehaviour
 
     private void FixedUpdate()
     {
+        depth = transform.position.y - surfaceY;
+        pressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth));
         HandleBuoyancy();
     }
 
@@ -60,32 +67,78 @@ public class DiverControllerPrototype : MonoBehaviour
 
     private void RotateTowardMouse()
     {
-        if (isCursorLocked)
+        Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
+        Vector3 mousePosition = Input.mousePosition;
+
+        // Calculate the direction from the center to the mouse position
+        Vector3 direction = mousePosition - screenCenter;
+
+        // Constrain the direction to a circle with a radius of 100 pixels
+        float radius = 100f;
+        if (direction.magnitude > radius)
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+            direction = direction.normalized * radius;
+        }
 
-            float angle = Mathf.Atan2(mouseY, mouseX) * Mathf.Rad2Deg - 90f;
+        // Calculate the constrained mouse position
+        Vector3 constrainedMousePosition = screenCenter + direction;
 
-            Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+        // Convert the constrained mouse position to world point
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(constrainedMousePosition);
+        Vector2 directionToFace = (mouseWorld - transform.position);
+        float angle = Mathf.Atan2(directionToFace.y, directionToFace.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+    }
+
+    // Adjusts vertical position based on BCD and pressure at depth
+    private void HandleBuoyancy()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentBcdAir = Mathf.Min(currentBcdAir + Time.deltaTime * 10f, maxBcdAir);
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            currentBcdAir = Mathf.Max(currentBcdAir - Time.deltaTime * 10f, 0f);
+        }
+
+        // Apply buoyancy force based on current BCD air amount and pressure
+        float buoyancyForce = CalculateBuoyancyForce(depth, pressure);
+        rb.AddForce(Vector3.up * buoyancyForce, ForceMode.Acceleration);
+    }
+
+    // Calculates the buoyancy force based on the diver's depth and pressure
+    private float CalculateBuoyancyForce(float depth, float pressure)
+    {
+        float bcdEffectiveness = currentBcdAir / maxBcdAir;
+        float adjustedBcdForce = bcdForce * bcdEffectiveness / pressure;
+
+        if (currentBcdAir == 0f)
+        {
+            // Apply a gradual negative buoyancy based on depth and pressure
+            float negativeBuoyancyForce = -bcdForce * Mathf.Lerp(0.1f, 1f, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth)) / pressure;
+            return negativeBuoyancyForce;
+        }
+
+        if (depth > neutralTopY)
+        {
+            return -adjustedBcdForce; // Negative buoyancy above neutral top
+        }
+        else if (depth < neutralBottomY)
+        {
+            return adjustedBcdForce; // Positive buoyancy below neutral bottom
         }
         else
         {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (mouseWorld - transform.position);
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
-            Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+            // Interpolate buoyancy force within the neutral range
+            float t = Mathf.InverseLerp(neutralBottomY, neutralTopY, depth);
+            return Mathf.Lerp(adjustedBcdForce, -adjustedBcdForce, t);
         }
     }
 
@@ -109,48 +162,6 @@ public class DiverControllerPrototype : MonoBehaviour
         }
 
         kickRoutine = null;
-    }
-
-    // Adjusts vertical position based on BCD and pressure at depth
-    private void HandleBuoyancy()
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            currentBcdAir = Mathf.Min(currentBcdAir + Time.deltaTime * 10f, maxBcdAir);
-        }
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            currentBcdAir = Mathf.Max(currentBcdAir - Time.deltaTime * 10f, 0f);
-        }
-
-        float depth = transform.position.y;
-        float pressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth));
-
-        // Apply buoyancy force based on current BCD air amount and pressure
-        float buoyancyForce = CalculateBuoyancyForce(depth, pressure);
-        rb.AddForce(Vector3.up * buoyancyForce, ForceMode.Acceleration);
-    }
-
-    // Calculates the buoyancy force based on the diver's depth and pressure
-    private float CalculateBuoyancyForce(float depth, float pressure)
-    {
-        float bcdEffectiveness = currentBcdAir / maxBcdAir;
-        float adjustedBcdForce = bcdForce * bcdEffectiveness / pressure;
-
-        if (depth > neutralTopY)
-        {
-            return -adjustedBcdForce; // Negative buoyancy above neutral top
-        }
-        else if (depth < neutralBottomY)
-        {
-            return adjustedBcdForce; // Positive buoyancy below neutral bottom
-        }
-        else
-        {
-            // Interpolate buoyancy force within the neutral range
-            float t = Mathf.InverseLerp(neutralBottomY, neutralTopY, depth);
-            return Mathf.Lerp(adjustedBcdForce, -adjustedBcdForce, t);
-        }
     }
 
 #if UNITY_EDITOR

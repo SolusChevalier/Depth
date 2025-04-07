@@ -41,6 +41,10 @@ public class MusicManager : MonoBehaviour
                 PlayMusic(gameSceneMusic);
                 break;
 
+            case "Death":
+                PlayMusic(deathMusic);
+                break;
+
             default:
                 break;
         }
