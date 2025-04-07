@@ -68,4 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warmth: 0.5
   warmthDist: 10
-  ventCenter: {fileID: 0}
+  sphereCollider: {fileID: 3813909860334091246}
