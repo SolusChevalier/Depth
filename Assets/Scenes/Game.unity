@@ -1253,8 +1253,9 @@ GameObject:
   - component: {fileID: 666154214}
   - component: {fileID: 666154213}
   - component: {fileID: 666154212}
+  - component: {fileID: 666154215}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: shipwreck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1308,6 +1309,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &666154215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666154211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7aa0671582adf6468e9c1019bbeefd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Anchor: {fileID: 0}
+  LockXMovement: 0
+  LockYMovement: 0
+  LockZMovement: 1
+  bobSpeed: 1.26
+  bobHeight: 1
 --- !u!1001 &682792199
 PrefabInstance:
   m_ObjectHideFlags: 0
