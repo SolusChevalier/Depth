@@ -757,9 +757,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5840076274600031501, guid: d6ec9db2809e3b14abd298e670b79972, type: 3}
       insertIndex: 1
       addedObject: {fileID: 832959754}
-    - targetCorrespondingSourceObject: {fileID: 5840076274600031501, guid: d6ec9db2809e3b14abd298e670b79972, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 832959753}
   m_SourcePrefab: {fileID: 100100000, guid: d6ec9db2809e3b14abd298e670b79972, type: 3}
 --- !u!4 &615514508 stripped
 Transform:
@@ -976,49 +973,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5840076274600031501, guid: d6ec9db2809e3b14abd298e670b79972, type: 3}
   m_PrefabInstance: {fileID: 615514507}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &832959753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832959747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef8973697ba23249b1e61cafe3c1c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  kickForce: 5
-  kickDuration: 1
-  kickCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  bcdForce: 3
-  surfaceY: 0
-  pressureMultiplier: 0.1
-  maxVerticalSpeed: 2
 --- !u!114 &832959754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,9 +985,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef8973697ba23249b1e61cafe3c1c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  kickForce: 0.5
+  rotationSpeed: 25
+  kickForce: 2.07
   kickDuration: 0.5
+  kickCooldown: 0.7
   kickCurve:
     serializedVersion: 2
     m_Curve:
@@ -1060,8 +1015,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   bcdForce: 3
   surfaceY: 12.13
-  pressureMultiplier: 0.1
-  maxVerticalSpeed: 2
+  pressureMultiplier: 0.35
+  maxVerticalSpeed: 1.14
+  neutralTopY: 12.16
+  neutralBottomY: 0
+  maxBcdAir: 100
 --- !u!1001 &901657954
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class MusicManager : MonoBehaviour
     {
         switch (scene.name)
         {
-            case "StartMenu":
+            case "MainMenu":
                 PlayMusic(mainMenuMusic);
                 break;
 

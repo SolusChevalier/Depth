@@ -9,12 +9,14 @@ public class DiverControllerPrototype : MonoBehaviour
 
     [Header("Kick Settings")]
     public float kickForce = 5f;
+
     public float kickDuration = 0.5f;
     public float kickCooldown = 0.5f;
     public AnimationCurve kickCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Buoyancy Settings")]
     public float bcdForce = 3f;
+
     public float surfaceY = 0f; // Adjustable "sea level"
     public float pressureMultiplier = 0.1f;
     public float maxVerticalSpeed = 2f;
@@ -55,18 +57,36 @@ public class DiverControllerPrototype : MonoBehaviour
     }
 
     // Rotates the diver to face the mouse cursor (in 2D, circular side-on)
+
     private void RotateTowardMouse()
     {
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mouseWorld - transform.position);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        if (isCursorLocked)
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
+            float angle = Mathf.Atan2(mouseY, mouseX) * Mathf.Rad2Deg - 90f;
+
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+        else
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mouseWorld - transform.position);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
     }
 
     // Applies forward thrust over time, like a diver's kick
