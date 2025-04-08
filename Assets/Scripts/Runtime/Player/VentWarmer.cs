@@ -4,9 +4,10 @@ public class VentWarmer : MonoBehaviour
 {
     #region FIELDS
 
-    public float WarmingRate = 0.5f;
-    private float _timeSinceLastTick = 0f;
-    private const float tickInterval = 0.8f;
+    public float WarmingRate = 75f;
+
+    // Public variable to track if the vent is triggered
+    public bool isTriggered = false;
 
     #endregion FIELDS
 
@@ -16,16 +17,22 @@ public class VentWarmer : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isTriggered = true; // Set isTriggered to true when the player is in the trigger
+
             PlayerManager playerManager = other.GetComponent<PlayerManager>();
             if (playerManager != null)
             {
-                _timeSinceLastTick += Time.fixedDeltaTime;
-                if (_timeSinceLastTick >= tickInterval)
-                {
-                    playerManager.playerTemp.AddTemperature(WarmingRate * Time.fixedDeltaTime);
-                    _timeSinceLastTick = 0f;
-                }
+                // Apply constant temperature increase
+                playerManager.playerTemp.AddTemperature(WarmingRate * Time.deltaTime);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isTriggered = false; // Reset isTriggered to false when the player exits the trigger
         }
     }
 

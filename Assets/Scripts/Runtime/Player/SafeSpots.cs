@@ -4,10 +4,12 @@ public class SafeSpots : MonoBehaviour
 {
     #region FIELDS
 
-    [SerializeField] private float safeSpotRadius = 5f;
-    [SerializeField] private SphereCollider SphereCollider;
-    public float TempIncrease = 1f;
-    private float _timeSinceLastTick = 0f;
+    public float TempIncrease = 75f;
+
+    // Public variable to track if the safe spot is triggered
+    public bool isTriggered = false;
+
+    private PlayerManager playerManager; // Cached reference to PlayerManager
 
     #endregion FIELDS
 
@@ -15,40 +17,42 @@ public class SafeSpots : MonoBehaviour
 
     private void Start()
     {
-        SphereCollider = GetComponent<SphereCollider>();
-        if (SphereCollider != null)
+        // Find the PlayerManager in the scene
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            safeSpotRadius = SphereCollider.radius;
+            playerManager = player.GetComponent<PlayerManager>();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && playerManager != null)
+        {
+            isTriggered = true; // Set isTriggered to true when the player enters the trigger
+
+            // Set the player as hidden
+            playerManager.SetHiddenState(true);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && playerManager != null)
         {
-            PlayerManager playerManager = other.GetComponent<PlayerManager>();
-            if (playerManager != null)
-            {
-                _timeSinceLastTick += Time.fixedDeltaTime;
-                if (_timeSinceLastTick >= 1f)
-                {
-                    playerManager.playerTemp.AddTemperature(TempIncrease * Time.fixedDeltaTime);
-                    playerManager.SetHiddenState(true); // Hide the player
-                    _timeSinceLastTick = 0f;
-                }
-            }
+            // Apply constant temperature increase
+            playerManager.playerTemp.AddTemperature(TempIncrease * Time.deltaTime);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && playerManager != null)
         {
-            PlayerManager playerManager = other.GetComponent<PlayerManager>();
-            if (playerManager != null)
-            {
-                playerManager.SetHiddenState(false); // Unhide the player
-            }
+            isTriggered = false; // Reset isTriggered to false when the player exits the trigger
+
+            // Unhide the player
+            playerManager.SetHiddenState(false);
         }
     }
 

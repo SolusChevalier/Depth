@@ -2997,7 +2997,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1280743396537307278, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
   m_PrefabInstance: {fileID: 2098351869}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545125555}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afbfe68cf031112409b6fed63bf01b13, type: 3}
@@ -3008,7 +3008,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6214696678103030618, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
   m_PrefabInstance: {fileID: 2098351869}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545125555}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c1355b612f833e49bd3364ab5f04452, type: 3}
@@ -4247,28 +4247,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
---- !u!1 &1545125555 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5840076274600031501, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
-  m_PrefabInstance: {fileID: 2098351869}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1545125560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545125555}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd71cb5e2d244e48b4ceaeade3cf9c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrustForce: 5
-  InputCords: {x: 0, y: 0}
-  rotationSpeed: 100
-  verticalBuoyancyForce: 3
-  maxVerticalSpeed: 2
 --- !u!1 &1553744733 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2460869519893088110, guid: 5269197259989ee4d99a6da50847fbdf, type: 3}
@@ -6119,10 +6097,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5840076274600031501, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 1545125560}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

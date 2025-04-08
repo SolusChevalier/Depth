@@ -13,7 +13,13 @@ public class PlayerManager : MonoBehaviour
     private float _progression = 0.0f;
     [SerializeField] private bool isCursorLocked = false;
     [SerializeField] private float _speedIncrement = 0.1f;
-    public bool isHidden { get; private set; }
+
+    public bool isHidden = false; // Track if the player is hidden
+
+    // Raycast hiding detection
+    public LayerMask hidingLayer; // Layer mask for hiding objects
+
+    public float raycastDistance = 5f; // Maximum distance for the raycast
 
     #endregion FIELDS
 
@@ -33,6 +39,9 @@ public class PlayerManager : MonoBehaviour
             Cursor.lockState = isCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isCursorLocked;
         }
+
+        // Perform hiding detection
+        //DetectHiding();
     }
 
     private void FixedUpdate()
@@ -67,6 +76,7 @@ public class PlayerManager : MonoBehaviour
     public void SetHiddenState(bool hidden)
     {
         isHidden = hidden;
+        Debug.Log("Player hidden state: " + isHidden);
     }
 
     public void SetMaxHeatShield(float newShield)
@@ -89,6 +99,26 @@ public class PlayerManager : MonoBehaviour
             return 0;
         }
     }
+
+    /* private void DetectHiding()
+     {
+         // Perform a raycast from the player's position to check for hiding objects
+         Ray ray = new Ray(transform.position, Vector3.up); // Example direction (upward)
+         RaycastHit hit;
+
+         if (Physics.Raycast(ray, out hit, raycastDistance, hidingLayer))
+         {
+             // Check if the raycast hit a hiding object
+             if (hit.collider.CompareTag("HidingObject"))
+             {
+                 SetHiddenState(true);
+                 return;
+             }
+         }
+
+         // If no hiding object is detected, unhide the player
+         SetHiddenState(false);
+     }*/
 
     #endregion METHODS
 }
