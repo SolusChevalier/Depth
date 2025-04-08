@@ -1630,14 +1630,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  rotationAcceleration: 5
+  rotationDamping: 3
+  neutralAirThresholdLow: 45
+  neutralAirThresholdHigh: 55
   bcdForce: 8.58
-  surfaceY: 18.1
   pressureMultiplier: 0.35
   maxVerticalSpeed: 1.14
-  neutralTopY: 17.9
-  neutralBottomY: -15.34
   maxBcdAir: 100
   currentBcdAir: 0
+  verticalBounds: {x: 17.5, y: -15.3}
   depth: 0
   pressure: 0
   onDepthChanged:
