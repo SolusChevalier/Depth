@@ -15,20 +15,39 @@ public class DiverControllerPrototype : MonoBehaviour
     public float kickCooldown = 0.5f;
     public AnimationCurve kickCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [Header("Buoyancy Settings")]
-    public float bcdForce = 3f;
+    [Header("Rotation Inertia")]
+    public float rotationAcceleration = 5f;
 
-    public float surfaceY = 0f; // Adjustable "sea level"
+    public float rotationDamping = 3f;
+    private float currentRotationInput = 0f;
+
+    [Header("Neutral Buoyancy Tuning")]
+    public float neutralAirThresholdLow = 45f;
+
+    public float neutralAirThresholdHigh = 55f;
+
+    [Header("Buoyancy Settings")]
+    public float bcdForce = 4.5f;
+
+    public float buoyancyBoostMultiplier = 3.5f;
     public float pressureMultiplier = 0.1f;
     public float maxVerticalSpeed = 2f;
-    public float neutralTopY = -5f; // Top level where you are neutral with no air
-    public float neutralBottomY = -20f; // Bottom level where you need full BCD to be neutral
     public float maxBcdAir = 100f; // Maximum BCD air amount
 
     public float currentBcdAir = 0f; // Current BCD air amount
     private Rigidbody rb;
     private Coroutine kickRoutine;
     private bool isCursorLocked = false;
+
+    [Header("Map Bounds")]
+    public Vector2 verticalBounds = new Vector2(0f, -30f); // (surfaceY, bottomY)
+
+    // Calculated automatically:
+    private float surfaceY => verticalBounds.x;
+
+    private float bottomY => verticalBounds.y;
+    private float neutralTopY => Mathf.Lerp(surfaceY, bottomY, 0.25f);   // 25% depth
+    private float neutralBottomY => Mathf.Lerp(surfaceY, bottomY, 0.75f); // 75% depth
 
     [Header("Diver Stats")]
     public float depth = 0f;
@@ -68,15 +87,36 @@ public class DiverControllerPrototype : MonoBehaviour
         {
             kickRoutine = StartCoroutine(KickCoroutine());
         }
+        if (Input.GetKeyUp(KeyCode.W) && kickRoutine != null)
+        {
+            StopCoroutine(kickRoutine);
+            kickRoutine = null;
+        }
     }
 
     // Rotates the diver using A and D keys
     private void RotateWithKeyboard()
     {
-        float horizontalInput = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow keys
-        float rotationAmount = horizontalInput * rotationSpeed * Time.deltaTime;
+        float targetInput = -Input.GetAxis("Horizontal"); // Inverted to match original direction
+        currentRotationInput = Mathf.MoveTowards(
+            currentRotationInput,
+            targetInput,
+            rotationAcceleration * Time.deltaTime
+        );
 
-        transform.Rotate(0f, 0f, -rotationAmount);
+        // Apply damping when no input
+        if (Mathf.Approximately(targetInput, 0f))
+        {
+            currentRotationInput = Mathf.MoveTowards(
+                currentRotationInput,
+                0f,
+                rotationDamping * Time.deltaTime
+            );
+        }
+
+        float rotationAmount = currentRotationInput * rotationSpeed * Time.deltaTime;
+        Quaternion deltaRotation = Quaternion.Euler(0f, 0f, rotationAmount);
+        rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
     private void FixedUpdate()
@@ -96,6 +136,7 @@ public class DiverControllerPrototype : MonoBehaviour
         float normalizedBcdAir = (currentBcdAir / maxBcdAir) * 100f;
 
         HandleBuoyancy();
+        ApplyPassiveDrift();
 
         // Trigger Unity Events if values change
         if (Mathf.Abs(depth - previousDepth) > Mathf.Epsilon)
@@ -112,6 +153,35 @@ public class DiverControllerPrototype : MonoBehaviour
         {
             onBcdAirChanged?.Invoke(normalizedBcdAir);
         }
+    }
+
+    private void ApplyPassiveDrift()
+    {
+        float normalizedBcd = (currentBcdAir / maxBcdAir) * 100f;
+
+        if (normalizedBcd >= neutralAirThresholdLow && normalizedBcd <= neutralAirThresholdHigh)
+        {
+            // In the "float zone", barely move
+            return;
+        }
+
+        // Sinking logic if outside float zone
+        float driftForce;
+
+        if (normalizedBcd < neutralAirThresholdLow)
+        {
+            // Below neutral, sinking
+            float t = Mathf.InverseLerp(0f, neutralAirThresholdLow, normalizedBcd);
+            driftForce = Mathf.Lerp(-1f, -0.1f, t);
+        }
+        else
+        {
+            // Above neutral, rising
+            float t = Mathf.InverseLerp(neutralAirThresholdHigh, 100f, normalizedBcd);
+            driftForce = Mathf.Lerp(0.1f, 1f, t);
+        }
+
+        rb.AddForce(Vector3.up * driftForce, ForceMode.Acceleration);
     }
 
     // Rotates the diver to face the mouse cursor (in 2D, circular side-on)
@@ -147,7 +217,12 @@ public class DiverControllerPrototype : MonoBehaviour
         );
     }
 
-    // Adjusts vertical position based on BCD and pressure at depth
+    private float GetPressureAtDepth()
+    {
+        float depthMeters = Mathf.Abs(transform.position.y - surfaceY);
+        return 1f + (depthMeters / 10f); // 1 atm at surface + 1 atm per 10m
+    }
+
     private void HandleBuoyancy()
     {
         if (Input.GetKey(KeyCode.LeftShift))
@@ -159,38 +234,20 @@ public class DiverControllerPrototype : MonoBehaviour
             currentBcdAir = Mathf.Max(currentBcdAir - Time.deltaTime * 10f, 0f);
         }
 
-        // Apply buoyancy force based on current BCD air amount and pressure
-        float buoyancyForce = CalculateBuoyancyForce(depth, pressure);
+        float pressureAtDepth = GetPressureAtDepth();
+        float buoyancyForce = CalculateBuoyancyForce(pressureAtDepth);
         rb.AddForce(Vector3.up * buoyancyForce, ForceMode.Acceleration);
     }
 
-    // Calculates the buoyancy force based on the diver's depth and pressure
-    private float CalculateBuoyancyForce(float depth, float pressure)
+    private float CalculateBuoyancyForce(float pressureAtDepth)
     {
-        float bcdEffectiveness = currentBcdAir / maxBcdAir;
-        float adjustedBcdForce = bcdForce * bcdEffectiveness / pressure;
+        if (currentBcdAir <= 0f)
+            return 0f;
 
-        if (currentBcdAir == 0f)
-        {
-            // Apply a gradual negative buoyancy based on depth and pressure
-            float negativeBuoyancyForce = -bcdForce * Mathf.Lerp(0.1f, 1f, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth)) / pressure;
-            return negativeBuoyancyForce;
-        }
+        // Simulate compressed BCD air, scaled up for gameplay feel
+        float effectiveVolume = (currentBcdAir / pressureAtDepth) * buoyancyBoostMultiplier;
 
-        if (depth > neutralTopY)
-        {
-            return -adjustedBcdForce; // Negative buoyancy above neutral top
-        }
-        else if (depth < neutralBottomY)
-        {
-            return adjustedBcdForce; // Positive buoyancy below neutral bottom
-        }
-        else
-        {
-            // Interpolate buoyancy force within the neutral range
-            float t = Mathf.InverseLerp(neutralBottomY, neutralTopY, depth);
-            return Mathf.Lerp(adjustedBcdForce, -adjustedBcdForce, t);
-        }
+        return bcdForce * (effectiveVolume / maxBcdAir);
     }
 
     // Applies forward thrust over time, like a diver's kick
@@ -220,18 +277,27 @@ public class DiverControllerPrototype : MonoBehaviour
     // Debug Gizmos for inspector visualization
     private void OnDrawGizmos()
     {
-        // Rotation direction
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, transform.position + transform.up);
+        Vector3 left = new Vector3(-100f, 0f, 0f);
+        Vector3 right = new Vector3(100f, 0f, 0f);
 
         // Surface line
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(new Vector3(-100f, surfaceY, 0f), new Vector3(100f, surfaceY, 0f));
+        left.y = right.y = surfaceY;
+        Gizmos.DrawLine(left, right);
 
-        // Neutral buoyancy range
+        // Bottom line
+        Gizmos.color = Color.red;
+        left.y = right.y = bottomY;
+        Gizmos.DrawLine(left, right);
+
+        // Neutral buoyancy top
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector3(-100f, neutralTopY, 0f), new Vector3(100f, neutralTopY, 0f));
-        Gizmos.DrawLine(new Vector3(-100f, neutralBottomY, 0f), new Vector3(100f, neutralBottomY, 0f));
+        left.y = right.y = neutralTopY;
+        Gizmos.DrawLine(left, right);
+
+        // Neutral buoyancy bottom
+        left.y = right.y = neutralBottomY;
+        Gizmos.DrawLine(left, right);
     }
 
 #endif
