@@ -76,7 +76,7 @@ public class PlayerManager : MonoBehaviour
     public void SetHiddenState(bool hidden)
     {
         isHidden = hidden;
-        Debug.Log("Player hidden state: " + isHidden);
+        //Debug.Log("Player hidden state: " + isHidden);
     }
 
     public void SetMaxHeatShield(float newShield)
