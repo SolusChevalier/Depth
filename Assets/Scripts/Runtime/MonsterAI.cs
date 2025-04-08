@@ -50,11 +50,8 @@ public class MonsterAI : MonoBehaviour
             return;
         }
 
-        if (distanceToPlayer < detection)
+        if (distanceToPlayer <= detection*2 )
         {
-            // Chase logic
-            targetDirection = (player.position - transform.position).normalized;
-
             bool wasChasing = isChasing;
             isChasing = true;
 
@@ -62,6 +59,20 @@ public class MonsterAI : MonoBehaviour
             {
                 audioSource.Play();
             }
+        }
+
+        if (distanceToPlayer < detection)
+        {
+            // Chase logic
+            targetDirection = (player.position - transform.position).normalized;
+
+            // Rotate model to face movement direction (on Y axis only)
+            if (targetDirection.sqrMagnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+                modelTransform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
+
         }
         else
         {
@@ -75,6 +86,13 @@ public class MonsterAI : MonoBehaviour
             }
 
             targetDirection = idleDirection;
+
+            // Rotate model to face movement direction (on Y axis only)
+            if (targetDirection.sqrMagnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+                modelTransform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
         }
 
         // Apply vertical swim
@@ -101,6 +119,16 @@ public class MonsterAI : MonoBehaviour
         if (animator && !animator.GetCurrentAnimatorStateInfo(0).IsName("swim"))
         {
             animator.Play("swim");
+        }
+
+}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            new WaitForSeconds(3f);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Death");
         }
     }
 
