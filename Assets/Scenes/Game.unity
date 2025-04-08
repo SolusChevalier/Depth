@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.2
@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -488,11 +488,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: 3.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.12
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -529,6 +529,30 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
       propertyPath: m_Name
       value: Sea Monster Temp Rig
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617870443662741733, guid: bd81aec9f25baa74497b822f0ad0b6cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -717,6 +741,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -824,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1162,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1338,7 +1366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1579,7 +1607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1740,7 +1768,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.69, y: 1.43, z: 1}
+  m_Size: {x: 2.97, y: 4.15, z: 1.61}
   m_Center: {x: 0.17, y: -1.2153859, z: 0}
 --- !u!4 &666154214
 Transform:
@@ -1794,6 +1822,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -1854,7 +1886,6 @@ GameObject:
   m_Component:
   - component: {fileID: 735394879}
   - component: {fileID: 735394878}
-  - component: {fileID: 735394877}
   - component: {fileID: 735394876}
   m_Layer: 0
   m_Name: shipwreck (1)
@@ -1881,18 +1912,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &735394877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 735394875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &735394878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2014,7 +2033,6 @@ GameObject:
   m_Component:
   - component: {fileID: 780968560}
   - component: {fileID: 780968559}
-  - component: {fileID: 780968558}
   - component: {fileID: 780968557}
   m_Layer: 0
   m_Name: shipwreck (9)
@@ -2041,18 +2059,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &780968558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780968556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &780968559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2108,6 +2114,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -2168,7 +2178,6 @@ GameObject:
   m_Component:
   - component: {fileID: 821503453}
   - component: {fileID: 821503452}
-  - component: {fileID: 821503451}
   - component: {fileID: 821503450}
   m_Layer: 0
   m_Name: shipwreck (8)
@@ -2195,18 +2204,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &821503451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821503449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &821503452
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2508,7 +2505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2577,7 +2574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2646,7 +2643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2715,7 +2712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2772,7 +2769,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1058347078}
   - component: {fileID: 1058347077}
-  - component: {fileID: 1058347076}
   - component: {fileID: 1058347075}
   m_Layer: 0
   m_Name: shipwreck (6)
@@ -2799,18 +2795,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1058347076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1058347074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1058347077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3079,7 +3063,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1119523497}
   - component: {fileID: 1119523496}
-  - component: {fileID: 1119523495}
   - component: {fileID: 1119523494}
   m_Layer: 0
   m_Name: shipwreck (3)
@@ -3106,18 +3089,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1119523495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119523493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1119523496
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3180,7 +3151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3249,7 +3220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3315,6 +3286,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -3466,6 +3441,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3525,7 +3504,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1331841605}
   - component: {fileID: 1331841604}
-  - component: {fileID: 1331841603}
   - component: {fileID: 1331841602}
   m_Layer: 0
   m_Name: shipwreck (11)
@@ -3552,18 +3530,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1331841603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1331841601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1331841604
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3712,7 +3678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3778,6 +3744,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -4015,7 +3985,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1427175856}
   - component: {fileID: 1427175855}
-  - component: {fileID: 1427175854}
   - component: {fileID: 1427175853}
   m_Layer: 0
   m_Name: shipwreck (10)
@@ -4042,18 +4011,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1427175854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427175852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1427175855
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4100,7 +4057,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1434080700}
   - component: {fileID: 1434080699}
-  - component: {fileID: 1434080698}
   - component: {fileID: 1434080697}
   m_Layer: 0
   m_Name: shipwreck (2)
@@ -4127,18 +4083,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1434080698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434080696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1434080699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4197,7 +4141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4266,7 +4210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4423,6 +4367,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4491,6 +4439,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -4561,6 +4513,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4629,6 +4585,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -4728,7 +4688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5059,7 +5019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5258,7 +5218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5544,7 +5504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5601,7 +5561,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1838825928}
   - component: {fileID: 1838825927}
-  - component: {fileID: 1838825926}
   - component: {fileID: 1838825925}
   m_Layer: 0
   m_Name: shipwreck (7)
@@ -5628,18 +5587,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1838825926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838825924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1838825927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5695,6 +5642,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -5954,7 +5905,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1958826514}
   - component: {fileID: 1958826513}
-  - component: {fileID: 1958826512}
   - component: {fileID: 1958826511}
   m_Layer: 0
   m_Name: shipwreck (5)
@@ -5981,18 +5931,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &1958826512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958826510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1958826513
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6181,7 +6119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: WarmingRate
-      value: 1
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9018669490171973210, guid: bd65b4bf4ba7f2c49a31a5ceac2553a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6247,6 +6185,10 @@ PrefabInstance:
     - target: {fileID: 3813909860334091246, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
@@ -6396,6 +6338,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5290792360898883501, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
+      propertyPath: TempIncrease
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7973777588737438340, guid: 75ef13f417181f040a6fc380f685c23e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -6455,7 +6401,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2098296998}
   - component: {fileID: 2098296997}
-  - component: {fileID: 2098296996}
   - component: {fileID: 2098296995}
   m_Layer: 0
   m_Name: shipwreck (4)
@@ -6482,18 +6427,6 @@ MonoBehaviour:
   LockZMovement: 1
   bobSpeed: 1.08
   bobHeight: 0.36
---- !u!114 &2098296996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098296994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36a8b14b39e86441b8b277a869ef5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2098296997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6541,6 +6474,14 @@ PrefabInstance:
     - target: {fileID: 630507353306259281, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 630507353306259281, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
+      propertyPath: swimForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 630507353306259281, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
+      propertyPath: rotationSpeed
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1280743396537307278, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: OnShieldChanged.m_PersistentCalls.m_Calls.Array.size
