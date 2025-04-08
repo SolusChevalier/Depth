@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MonsterAI : MonoBehaviour
 {
-
     public Transform player;
     public float detection = 10f;
     public float moveSpeed = 0.5f;
@@ -14,20 +13,21 @@ public class MonsterAI : MonoBehaviour
     private AudioSource audioSource;
     private bool isChasing = false;
 
-
     public Transform modelTransform;//model rotation var
 
     // Roaming variables
     public float directionChangeInterval = 5f;
+
     private float directionChangeTimer;
     private Vector2 idleDirection;
 
     // Map boundary variables
     public Vector2 minBounds = new Vector2(-100f, -100f);
+
     public Vector2 maxBounds = new Vector2(100f, 100f);
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         animator = modelTransform.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -37,32 +37,35 @@ public class MonsterAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         Vector2 targetDirection;
 
-        //Vector3 swimOffset = Vector3.up * Mathf.Sin(Time.time + swimFrequency) * swimHeight;
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+        if (playerManager != null && playerManager.isHidden)
+        {
+            // Player is hidden, do not detect or chase
+            isChasing = false;
+            return;
+        }
 
         if (distanceToPlayer < detection)
         {
-            //chase
+            // Chase logic
             targetDirection = (player.position - transform.position).normalized;
 
-            //trigger audio 
             bool wasChasing = isChasing;
-            isChasing = Vector2.Distance(transform.position, player.position) < detection;
+            isChasing = true;
 
-            if (isChasing)
+            if (isChasing && !wasChasing)
             {
-                // Just started chasing
                 audioSource.Play();
             }
         }
-
         else
         {
-            //idle
+            // Idle logic
             directionChangeTimer -= Time.deltaTime;
 
             if (directionChangeTimer <= 0f)
@@ -72,7 +75,6 @@ public class MonsterAI : MonoBehaviour
             }
 
             targetDirection = idleDirection;
-
         }
 
         // Apply vertical swim
@@ -100,12 +102,26 @@ public class MonsterAI : MonoBehaviour
         {
             animator.Play("swim");
         }
-
     }
 
-    void PickNewIdleDirection()
+    private void PickNewIdleDirection()
     {
         // Pick a new random normalized direction
         idleDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Define the corners of the boundary
+        Vector3 bottomLeft = new Vector3(minBounds.x, minBounds.y, transform.position.z);
+        Vector3 bottomRight = new Vector3(maxBounds.x, minBounds.y, transform.position.z);
+        Vector3 topLeft = new Vector3(minBounds.x, maxBounds.y, transform.position.z);
+        Vector3 topRight = new Vector3(maxBounds.x, maxBounds.y, transform.position.z);
+
+        // Draw the boundary lines in red
+        Debug.DrawLine(bottomLeft, bottomRight, Color.red);
+        Debug.DrawLine(bottomRight, topRight, Color.red);
+        Debug.DrawLine(topRight, topLeft, Color.red);
+        Debug.DrawLine(topLeft, bottomLeft, Color.red);
     }
 }

@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     private float _progression = 0.0f;
     [SerializeField] private bool isCursorLocked = false;
     [SerializeField] private float _speedIncrement = 0.1f;
+    public bool isHidden { get; private set; }
 
     #endregion FIELDS
 
@@ -61,6 +62,11 @@ public class PlayerManager : MonoBehaviour
         {
             playerTemp.RemoveTemperature(tempDecayRate * Time.fixedDeltaTime);
         }
+    }
+
+    public void SetHiddenState(bool hidden)
+    {
+        isHidden = hidden;
     }
 
     public void SetMaxHeatShield(float newShield)

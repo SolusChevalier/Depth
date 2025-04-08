@@ -4,24 +4,13 @@ public class VentWarmer : MonoBehaviour
 {
     #region FIELDS
 
-    [SerializeField] private float warmth = 0.5f;
-    [SerializeField] private float warmthDist = 10f;
-    [SerializeField] private SphereCollider sphereCollider;
+    public float WarmingRate = 0.5f;
     private float _timeSinceLastTick = 0f;
-    private const float tickInterval = 1f;
+    private const float tickInterval = 0.8f;
 
     #endregion FIELDS
 
     #region UNITY METHODS
-
-    private void Start()
-    {
-        sphereCollider = GetComponent<SphereCollider>();
-        if (sphereCollider != null)
-        {
-            warmthDist = sphereCollider.radius;
-        }
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -33,11 +22,7 @@ public class VentWarmer : MonoBehaviour
                 _timeSinceLastTick += Time.fixedDeltaTime;
                 if (_timeSinceLastTick >= tickInterval)
                 {
-                    float distToPlayer = Vector3.Distance(other.transform.position, transform.position);
-                    float distModifier = Mathf.Clamp01((warmthDist - distToPlayer) / warmthDist);
-                    float adjustedWarmth = warmth * distModifier;
-
-                    playerManager.playerTemp.AddTemperature(adjustedWarmth);
+                    playerManager.playerTemp.AddTemperature(WarmingRate * Time.fixedDeltaTime);
                     _timeSinceLastTick = 0f;
                 }
             }

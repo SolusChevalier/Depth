@@ -1803,8 +1803,8 @@ MonoBehaviour:
   swimFrequency: 2
   modelTransform: {fileID: 27061779}
   directionChangeInterval: 5
-  minBounds: {x: -100, y: -100}
-  maxBounds: {x: 100, y: 100}
+  minBounds: {x: -23.9, y: -10.62}
+  maxBounds: {x: 27, y: 16.5}
 --- !u!95 &821998525
 Animator:
   serializedVersion: 7
@@ -5731,6 +5731,14 @@ PrefabInstance:
     - target: {fileID: 1853927375730829753, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: tempDecayRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853927375730829753, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
+      propertyPath: OnHiddenStateChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853927375730829753, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
+      propertyPath: OnHiddenStateChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2584771798284293582, guid: 131c354f53895874e9bc037e3c0649f1, type: 3}
       propertyPath: m_LocalPosition.x

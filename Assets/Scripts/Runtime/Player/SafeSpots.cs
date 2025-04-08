@@ -6,8 +6,7 @@ public class SafeSpots : MonoBehaviour
 
     [SerializeField] private float safeSpotRadius = 5f;
     [SerializeField] private SphereCollider SphereCollider;
-    public float shieldIncreaseRate = 1f;
-    public int newMaxHeatShield = 100;
+    public float TempIncrease = 1f;
     private float _timeSinceLastTick = 0f;
 
     #endregion FIELDS
@@ -33,10 +32,22 @@ public class SafeSpots : MonoBehaviour
                 _timeSinceLastTick += Time.fixedDeltaTime;
                 if (_timeSinceLastTick >= 1f)
                 {
-                    playerManager.SetMaxHeatShield(newMaxHeatShield);
-                    playerManager.heatShield.AddShield(shieldIncreaseRate);
+                    playerManager.playerTemp.AddTemperature(TempIncrease * Time.fixedDeltaTime);
+                    playerManager.SetHiddenState(true); // Hide the player
                     _timeSinceLastTick = 0f;
                 }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerManager playerManager = other.GetComponent<PlayerManager>();
+            if (playerManager != null)
+            {
+                playerManager.SetHiddenState(false); // Unhide the player
             }
         }
     }

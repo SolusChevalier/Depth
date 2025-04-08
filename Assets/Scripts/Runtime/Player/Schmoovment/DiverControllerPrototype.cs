@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DiverControllerPrototype : MonoBehaviour
@@ -34,6 +35,12 @@ public class DiverControllerPrototype : MonoBehaviour
 
     public float pressure = 0f;
 
+    [Header("Unity Events")]
+    public UnityEvent<float> onDepthChanged;
+
+    public UnityEvent<float> onPressureChanged;
+    public UnityEvent<float> onBcdAirChanged;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,13 +48,20 @@ public class DiverControllerPrototype : MonoBehaviour
 
     private void Update()
     {
-        RotateTowardMouse();
-
         if (Input.GetMouseButtonDown(1))
         {
             isCursorLocked = !isCursorLocked;
             Cursor.lockState = isCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !isCursorLocked;
+        }
+
+        if (isCursorLocked)
+        {
+            RotateWithKeyboard();
+        }
+        else
+        {
+            RotateTowardMouse();
         }
 
         if (Input.GetKeyDown(KeyCode.W) && kickRoutine == null)
@@ -56,11 +70,48 @@ public class DiverControllerPrototype : MonoBehaviour
         }
     }
 
+    // Rotates the diver using A and D keys
+    private void RotateWithKeyboard()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow keys
+        float rotationAmount = horizontalInput * rotationSpeed * Time.deltaTime;
+
+        transform.Rotate(0f, 0f, -rotationAmount);
+    }
+
     private void FixedUpdate()
     {
-        depth = transform.position.y - surfaceY;
-        pressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, depth));
+        float previousDepth = depth;
+        float previousPressure = pressure;
+        float previousBcdAir = currentBcdAir;
+
+        // Normalize depth to 0–100
+        depth = Mathf.InverseLerp(neutralBottomY, neutralTopY, transform.position.y - surfaceY) * 100f;
+
+        // Normalize pressure to 0–100
+        float rawPressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, transform.position.y - surfaceY));
+        pressure = Mathf.InverseLerp(1f, 1f + pressureMultiplier, rawPressure) * 100f;
+
+        // Normalize currentBcdAir to 0–100
+        float normalizedBcdAir = (currentBcdAir / maxBcdAir) * 100f;
+
         HandleBuoyancy();
+
+        // Trigger Unity Events if values change
+        if (Mathf.Abs(depth - previousDepth) > Mathf.Epsilon)
+        {
+            onDepthChanged?.Invoke(depth);
+        }
+
+        if (Mathf.Abs(pressure - previousPressure) > Mathf.Epsilon)
+        {
+            onPressureChanged?.Invoke(pressure);
+        }
+
+        if (Mathf.Abs(normalizedBcdAir - previousBcdAir) > Mathf.Epsilon)
+        {
+            onBcdAirChanged?.Invoke(normalizedBcdAir);
+        }
     }
 
     // Rotates the diver to face the mouse cursor (in 2D, circular side-on)
