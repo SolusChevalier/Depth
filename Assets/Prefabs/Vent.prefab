@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9018669490171973210}
   - component: {fileID: 3813909860334091246}
   - component: {fileID: 7973777588737438340}
-  - component: {fileID: 5034441673680928115}
-  - component: {fileID: 2403040312653199901}
+  - component: {fileID: 7453733618264310128}
+  - component: {fileID: 8183619334953963870}
   m_Layer: 0
   m_Name: Vent
   m_TagString: Untagged
@@ -50,7 +50,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarmingRate: 0.5
---- !u!108 &5034441673680928115
+--- !u!108 &7453733618264310128
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 1, g: 0.68095833, b: 0.2999999, a: 1}
+  m_Color: {r: 0, g: 0.5050273, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
@@ -134,7 +134,7 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &2403040312653199901
+--- !u!114 &8183619334953963870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
