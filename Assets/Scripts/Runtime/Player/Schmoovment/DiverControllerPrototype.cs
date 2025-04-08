@@ -34,10 +34,11 @@ public class DiverControllerPrototype : MonoBehaviour
     public float maxVerticalSpeed = 2f;
     public float maxBcdAir = 100f; // Maximum BCD air amount
 
-    public float currentBcdAir = 0f; // Current BCD air amount
+    public float currentBcdAir = 25f; // Current BCD air amount
     private Rigidbody rb;
     private Coroutine kickRoutine;
     private bool isCursorLocked = false;
+    private float pressureAtDepth = 1f; // default surface pressure
 
     [Header("Map Bounds")]
     public Vector2 verticalBounds = new Vector2(0f, -30f); // (surfaceY, bottomY)
@@ -53,6 +54,12 @@ public class DiverControllerPrototype : MonoBehaviour
     public float depth = 0f;
 
     public float pressure = 0f;
+
+    [Header("UI")]
+    [Range(0, 100)]
+    public float currentBuoyancyLevel = 50f; // 0 = max sink, 100 = max float, 50 = neutral
+
+    public UnityEvent<float> onBuoyancyLevelChanged; // optional for UI binding
 
     [Header("Unity Events")]
     public UnityEvent<float> onDepthChanged;
@@ -121,15 +128,16 @@ public class DiverControllerPrototype : MonoBehaviour
 
     private void FixedUpdate()
     {
+        pressureAtDepth = GetPressureAtDepth();
         float previousDepth = depth;
         float previousPressure = pressure;
         float previousBcdAir = currentBcdAir;
 
         // Normalize depth to 0–100
-        depth = Mathf.InverseLerp(neutralBottomY, neutralTopY, transform.position.y - surfaceY) * 100f;
+        depth = Mathf.InverseLerp(bottomY, surfaceY, transform.position.y) * 100f;
 
         // Normalize pressure to 0–100
-        float rawPressure = Mathf.Lerp(1f, 1f + pressureMultiplier, Mathf.InverseLerp(neutralTopY, neutralBottomY, transform.position.y - surfaceY));
+        float rawPressure = pressureAtDepth;
         pressure = Mathf.InverseLerp(1f, 1f + pressureMultiplier, rawPressure) * 100f;
 
         // Normalize currentBcdAir to 0–100
@@ -137,6 +145,7 @@ public class DiverControllerPrototype : MonoBehaviour
 
         HandleBuoyancy();
         ApplyPassiveDrift();
+        UpdateBuoyancyLevel(pressureAtDepth);
 
         // Trigger Unity Events if values change
         if (Mathf.Abs(depth - previousDepth) > Mathf.Epsilon)
@@ -182,6 +191,31 @@ public class DiverControllerPrototype : MonoBehaviour
         }
 
         rb.AddForce(Vector3.up * driftForce, ForceMode.Acceleration);
+    }
+
+    private void UpdateBuoyancyLevel(float pressureAtDepth)
+    {
+        if (currentBcdAir <= 0f)
+        {
+            currentBuoyancyLevel = 0f;
+            onBuoyancyLevelChanged?.Invoke(currentBuoyancyLevel);
+            return;
+        }
+
+        float effectiveVolume = (currentBcdAir / pressureAtDepth) * buoyancyBoostMultiplier;
+        float normalizedLift = effectiveVolume / maxBcdAir; // 0.0 to 1.0
+
+        // Map effective buoyancy to a scale where:
+        // 0   = max sink
+        // 50  = neutral
+        // 100 = max float
+
+        float centerNeutral = 0.5f; // mid-point is 50%
+        float buoyancyOffset = normalizedLift - centerNeutral;
+
+        currentBuoyancyLevel = Mathf.Clamp01(centerNeutral + buoyancyOffset) * 100f;
+
+        onBuoyancyLevelChanged?.Invoke(currentBuoyancyLevel);
     }
 
     // Rotates the diver to face the mouse cursor (in 2D, circular side-on)

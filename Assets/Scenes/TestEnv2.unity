@@ -1603,8 +1603,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 25
-  kickForce: 2.07
-  kickDuration: 0.5
+  kickForce: 1
+  kickDuration: 1
   kickCooldown: 0.7
   kickCurve:
     serializedVersion: 2
@@ -1634,14 +1634,31 @@ MonoBehaviour:
   rotationDamping: 3
   neutralAirThresholdLow: 45
   neutralAirThresholdHigh: 55
-  bcdForce: 8.58
+  bcdForce: 4.5
+  buoyancyBoostMultiplier: 3.5
   pressureMultiplier: 0.35
   maxVerticalSpeed: 1.14
   maxBcdAir: 100
-  currentBcdAir: 0
+  currentBcdAir: 5
   verticalBounds: {x: 17.5, y: -15.3}
   depth: 0
   pressure: 0
+  currentBuoyancyLevel: 50
+  onBuoyancyLevelChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 905051012}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+        m_MethodName: set_value
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDepthChanged:
     m_PersistentCalls:
       m_Calls:
